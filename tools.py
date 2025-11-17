@@ -3,6 +3,7 @@
 """
 import numpy as np 
 import pandas as pd
+import datetime 
 from typing import List, Union, Tuple
 
 DIGITAL_CHN = [
@@ -186,15 +187,9 @@ def denoise_chunks(chunks:List[Tuple[int,int]], threshold:int=50) -> List[Tuple[
 
     return result
 
-if __name__ == "__main__":
-    from datareader import DataReader
-    
-    dr = DataReader("./data/BrainFlow-RAW_2025-11-01_17-07-18_0.csv")
+def time_stamp_converter(timestamp:float) ->datetime.datetime:
+    return datetime.datetime.fromtimestamp(timestamp)
 
-    idx = marker_datection(dr.df,[1,0],['0','3'])
-    seg = chunk_consecutive(idx)
-    de = denoise_chunks(seg)
-    
-    print("Indices:", idx)
-    print("Segments:", seg)
-    print("Denoised:", de)
+if __name__ == "__main__":
+    x = time_stamp_converter(1762004368.476541)
+    print(x, type(x))
